@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECO-BOTICS | Autonomous Planetary Cleansing Grid</title>
+    <style>
+        /* Fuentes Futuristas de Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Rajdhani:wght@500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        body {
+            background-color: #050811;
+            color: #e2e8f0;
+            overflow-x: hidden;
+            /* Luces de neón de fondo simulando alta tecnología */
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 230, 118, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(0, 180, 216, 0.1) 0%, transparent 40%);
+        }
+
+        /* BARRA DE NAVEGACIÓN COMPRA/VENTA/LOGS */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            border-bottom: 1px solid rgba(0, 230, 118, 0.2);
+            background: rgba(5, 8, 17, 0.85);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            color: #00e676;
+            text-shadow: 0 0 10px rgba(0, 230, 118, 0.5);
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: #00b4d8;
+        }
+
+        nav a {
+            color: #e2e8f0;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        nav a:hover, nav a.active {
+            color: #00e676;
+            text-shadow: 0 0 8px rgba(0, 230, 118, 0.6);
+        }
+
+        /* HERO SECTION (PANTALLA DE INICIO) */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            margin-top: 60px;
+            position: relative;
+        }
+
+        /* Cuadrícula estilo HUD de Videojuegos */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.5), transparent 90%),
+                        linear-gradient(90deg, rgba(0, 230, 118, 0.03) 1px, transparent 1px),
+                        linear-gradient(rgba(0, 230, 118, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 64px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #fff 30%, #00e676, #00b4d8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 2px 10px rgba(0,230,118,0.2));
+        }
+
+        .hero p {
+            font-size: 22px;
+            max-width: 800px;
+            margin-bottom: 40px;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        /* BOTONES INTERACTIVOS CON ESQUINAS DE JUEGO SCI-FI */
+        .btn-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn {
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 16px;
+            letter-spacing: 2px;
+            padding: 15px 35px;
+            border: 2px solid #00e676;
+            color: #00e676;
+            background: rgba(0, 230, 118, 0.05);
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 230, 118, 0.2);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; width: 10px; height: 10px;
+            border-top: 2px solid #fff; border-left: 2px solid #fff;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            bottom: -2px; right: -2px; width: 10px; height: 10px;
+            border-bottom: 2px solid #fff; border-right: 2px solid #fff;
+        }
+
+        .btn:hover {
+            background: #00e676;
+            color: #050811;
+            box-shadow: 0 0 25px #00e676;
+        }
+
+        .btn-secondary {
+            border-color: #00b4d8;
+            color: #00b4d8;
+            background: rgba(0, 180, 216, 0.05);
+            box-shadow: 0 0 15px rgba(0, 180, 216, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: #00b4d8;
+            color: #050811;
+            box-shadow: 0 0 25px #00b4d8;
+        }
+
+        /* CONTENEDOR DE SECCIONES */
+        .section-container {
+            padding: 100px 50px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 36px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 60px;
+            border-left: 4px solid #00e676;
+            padding-left: 15px;
+            color: #fff;
+        }
+
+        /* REJILLA DINÁMICA DE MECÁNICAS (COMPRAR / ARMAR / PROMOVER) */
+        .grid-mechanics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 3px solid #00e676;
+            padding: 40px 30px;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .card-alt {
+            border-top-color: #00b4d8;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            background: rgba(15, 23, 42, 0.9);
+            border-color: rgba(0, 230, 118, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 230, 118, 0.05);
+        }
+
+        /* RENDERS CSS DE LOS ROBOTS (Imágenes vectoriales de alto impacto) */
+        .robot-render {
+            width: 100%;
+            height: 200px;
+            background: #0b132b;
+            margin-bottom: 25px;
+            border: 1px dashed rgba(0, 230, 118, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .robot-render::before {
+            content: 'VISUALIZACIÓN MATRIZ 3D...';
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            color: rgba(0, 230, 118, 0.5);
+            letter-spacing: 1px;
+            position: absolute;
+            top: 10px; left: 10px;
+        }
+
+        /* Diseños Geométricos de Robots con Animación */
+        .bot-graphic {
+            width: 80px;
+            height: 80px;
+            border: 3px solid #00e676;
+            border-radius: 15px;
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .bot-graphic::after {
+            content: '';
+            position: absolute;
+            top: 25px; left: 15px; width: 12px; height: 12px;
+            background: #00b4d8; border-radius: 50%;
+            box-shadow: 25px 0 0 #00b4d8, 0 0 10px #00b4d8;
+        }
+
+        .bot-graphic-cyan { border-color: #00b4d8; }
+        .bot-graphic-cyan::after { background: #00e676; box-shadow: 25px 0 0 #00e676, 0 0 10px #00e676; }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 22px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .card p {
+            color: #94a3b8;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .stat-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            background: rgba(0, 230, 118, 0.1);
+            color: #00e676;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 1px;
+            border-radius: 3px;
+        }
+
+        /* MARCADOR DE ESTADÍSTICAS GLOBALES */
+        .stats-banner {
+            background: linear-gradient(135deg, #0f172a 0%, #050811 100%);
+            border-top: 1px solid rgba(0, 230, 118, 0.1);
+            border-bottom: 1px solid rgba(0, 230, 118, 0.1);
+            padding: 60px 50px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat-item h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 48px;
+            color: #00e676;
+            text-shadow: 0 0 15px rgba(0, 230, 118, 0.3);
+        }
+
+        .stat-item p {
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: #94a3b8;
+            margin-top: 5px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: #64748b;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">ECO-<span>BOTICS</span></div>
+        <nav>
+            <a href="#" class="active">Consola Central</a>
+            <a href="#">Taller</a>
+            <a href="#">Mercado</a>
+            <a href="#">Despliegue Urbano</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>RED ROBÓTICA DE LIMPIEZA <br>PLANETARIA ACTIVA</h1>
+        <p>Toma el control del ecosistema de restauración urbana más avanzado. Diseña, ensambla, vende y promociona flotas de robots autónomos con inteligencia artificial configurados para erradicar cualquier residuo en las calles en tiempo real.</p>
+        <div class="btn-container">
+            <button class="btn">PROMOVER PROYECTO</button>
+            <button class="btn btn-secondary">CONSTRUIR UNIDAD</button>
+        </div>
+    </section>
+
+    <section class="stats-banner">
+        <div class="stat-item">
+            <h2>8,429</h2>
+            <p>Robots Activos en la Ciudad</p>
+        </div>
+        <div class="stat-item">
+            <h2>98.7%</h2>
+            <p>Índice de Limpieza Urbana</p>
+        </div>
+        <div class="stat-item">
+            <h2>24.5M</h2>
+            <p>Toneladas de Desechos Procesados</p>
+        </div>
+    </section>
+
+    <section class="section-container">
+        <h2 class="section-title">Módulos Estratégicos del Sistema</h2>
+        
+        <div class="grid-mechanics">
+            
+            <div class="card">
+                <div class="robot-render">
+                    <div class="bot-graphic"></div>
+                </div>
+                <h3>[01] INGENIERÍA Y ENSAMBLE</h3>
+                <p>Combina chasis blindados, algoritmos avanzados de navegación de calles y herramientas moleculares de absorción. Configura la unidad perfecta adaptando recolectores de microplásticos o absorbedores de CO2 para las avenidas principales.</p>
+                <span class="stat-badge">SISTEMA DE DISEÑO</span>
+            </div>
+
+            <div class="card card-alt">
+                <div class="robot-render">
+                    <div class="bot-graphic bot-graphic-cyan"></div>
+                </div>
+                <h3>[02] MERCADO DE COMPRA Y VENTA</h3>
+                <p>Comercializa planos de
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECO-BOTICS | Autonomous Planetary Cleansing Grid</title>
+    <style>
+        /* Fuentes Futuristas de Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Rajdhani:wght@500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        body {
+            background-color: #050811;
+            color: #e2e8f0;
+            overflow-x: hidden;
+            /* Luces de neón de fondo simulando alta tecnología */
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 230, 118, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(0, 180, 216, 0.1) 0%, transparent 40%);
+        }
+
+        /* BARRA DE NAVEGACIÓN COMPRA/VENTA/LOGS */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            border-bottom: 1px solid rgba(0, 230, 118, 0.2);
+            background: rgba(5, 8, 17, 0.85);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            color: #00e676;
+            text-shadow: 0 0 10px rgba(0, 230, 118, 0.5);
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: #00b4d8;
+        }
+
+        nav a {
+            color: #e2e8f0;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        nav a:hover, nav a.active {
+            color: #00e676;
+            text-shadow: 0 0 8px rgba(0, 230, 118, 0.6);
+        }
+
+        /* HERO SECTION (PANTALLA DE INICIO) */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            margin-top: 60px;
+            position: relative;
+        }
+
+        /* Cuadrícula estilo HUD de Videojuegos */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.5), transparent 90%),
+                        linear-gradient(90deg, rgba(0, 230, 118, 0.03) 1px, transparent 1px),
+                        linear-gradient(rgba(0, 230, 118, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 64px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #fff 30%, #00e676, #00b4d8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 2px 10px rgba(0,230,118,0.2));
+        }
+
+        .hero p {
+            font-size: 22px;
+            max-width: 800px;
+            margin-bottom: 40px;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        /* BOTONES INTERACTIVOS CON ESQUINAS DE JUEGO SCI-FI */
+        .btn-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn {
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 16px;
+            letter-spacing: 2px;
+            padding: 15px 35px;
+            border: 2px solid #00e676;
+            color: #00e676;
+            background: rgba(0, 230, 118, 0.05);
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 230, 118, 0.2);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; width: 10px; height: 10px;
+            border-top: 2px solid #fff; border-left: 2px solid #fff;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            bottom: -2px; right: -2px; width: 10px; height: 10px;
+            border-bottom: 2px solid #fff; border-right: 2px solid #fff;
+        }
+
+        .btn:hover {
+            background: #00e676;
+            color: #050811;
+            box-shadow: 0 0 25px #00e676;
+        }
+
+        .btn-secondary {
+            border-color: #00b4d8;
+            color: #00b4d8;
+            background: rgba(0, 180, 216, 0.05);
+            box-shadow: 0 0 15px rgba(0, 180, 216, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: #00b4d8;
+            color: #050811;
+            box-shadow: 0 0 25px #00b4d8;
+        }
+
+        /* CONTENEDOR DE SECCIONES */
+        .section-container {
+            padding: 80px 50px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 36px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            border-left: 4px solid #00e676;
+            padding-left: 15px;
+            color: #fff;
+        }
+
+        /* REJILLA DINÁMICA DE MECÁNICAS (COMPRAR / ARMAR / PROMOVER) */
+        .grid-mechanics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 3px solid #00e676;
+            padding: 40px 30px;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .card-alt {
+            border-top-color: #00b4d8;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            background: rgba(15, 23, 42, 0.9);
+            border-color: rgba(0, 230, 118, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 230, 118, 0.05);
+        }
+
+        /* RENDERS CSS DE LOS ROBOTS */
+        .robot-render {
+            width: 100%;
+            height: 200px;
+            background: #0b132b;
+            margin-bottom: 25px;
+            border: 1px dashed rgba(0, 230, 118, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .robot-render::before {
+            content: 'VISUALIZACIÓN MATRIZ 3D...';
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            color: rgba(0, 230, 118, 0.5);
+            letter-spacing: 1px;
+            position: absolute;
+            top: 10px; left: 10px;
+        }
+
+        /* Diseños Geométricos de Robots con Animación */
+        .bot-graphic {
+            width: 80px;
+            height: 80px;
+            border: 3px solid #00e676;
+            border-radius: 15px;
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .bot-graphic::after {
+            content: '';
+            position: absolute;
+            top: 25px; left: 15px; width: 12px; height: 12px;
+            background: #00b4d8; border-radius: 50%;
+            box-shadow: 25px 0 0 #00b4d8, 0 0 10px #00b4d8;
+        }
+
+        .bot-graphic-cyan { border-color: #00b4d8; }
+        .bot-graphic-cyan::after { background: #00e676; box-shadow: 25px 0 0 #00e676, 0 0 10px #00e676; }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 22px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .card p {
+            color: #94a3b8;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .stat-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            background: rgba(0, 230, 118, 0.1);
+            color: #00e676;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 1px;
+            border-radius: 3px;
+        }
+
+        /* MARCADOR DE ESTADÍSTICAS GLOBALES */
+        .stats-banner {
+            background: linear-gradient(135deg, #0f172a 0%, #050811 100%);
+            border-top: 1px solid rgba(0, 230, 118, 0.1);
+            border-bottom: 1px solid rgba(0, 230, 118, 0.1);
+            padding: 60px 50px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat-item h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 48px;
+            color: #00e676;
+            text-shadow: 0 0 15px rgba(0, 230, 118, 0.3);
+        }
+
+        .stat-item p {
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: #94a3b8;
+            margin-top: 5px;
+        }
+
+        /* PANEL DE MONITOREO DE UNIDADES ACTIVAS (HUD JUEGO) */
+        .hud-table-container {
+            background: rgba(10, 17, 36, 0.7);
+            border: 1px solid rgba(0, 180, 216, 0.3);
+            border-radius: 8px;
+            padding: 25px;
+            margin-top: 20px;
+            overflow-x: auto;
+        }
+
+        .hud-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .hud-table th {
+            font-family: 'Orbitron', sans-serif;
+            color: #00b4d8;
+            text-transform: uppercase;
+            font-size: 14px;
+            padding: 15px;
+            border-bottom: 2px solid rgba(0, 180, 216, 0.4);
+            letter-spacing: 1px;
+        }
+
+        .hud-table td {
+            padding: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 16px;
+        }
+
+        .hud-table tr:hover {
+            background: rgba(0, 230, 118, 0.05);
+        }
+
+        /* Barras de Energía Estilo RPG */
+        .status-bar {
+            width: 100px;
+            height: 10px;
+            background: #1e293b;
+            border-radius: 5px;
+            overflow: hidden;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+
+        .status-fill {
+            height: 100%;
+            background: #00e676;
+            box-shadow: 0 0 8px #00e676;
+        }
+
+        .status-fill.medium { background: #ffca28; box-shadow: 0 0 8px #ffca28;}
+        .status-fill.low { background: #ef5350; box-shadow: 0 0 8px #ef5350;}
+
+        /* TIENDA DE PIEZAS / MERCADO DE COMPRA Y VENTA */
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .shop-item {
+            background: #0b132b;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .shop-item:hover {
+            border-color: #00e676;
+            box-shadow: 0 0 15px rgba(0, 230, 118, 0.15);
+        }
+
+        .shop-item img-replacement {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #00b4d8;
+            display: block;
+            margin: 0 auto 15px auto;
+            transform: rotate(45deg);
+        }
+
+        .price-tag {
+            font-family: 'Orbitron', sans-serif;
+            color: #ffca28;
+            font-size: 18px;
+            font-weight: 700;
+            margin: 15px 0;
+            display: block;
+        }
+
+        .btn-shop {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        /* --- NUEVA SECCIÓN DE APRENDIZAJE / ACADEMIA HOLOGRÁFICA --- */
+        .academy-box {
+            background: rgba(11, 19, 43, 0.8);
+            border: 2px dashed #00b4d8;
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .academy-box::before {
+            content: 'MODO TUTORIAL: PASO A PASO';
+            font-family: 'Orbitron', sans-serif;
+            position: absolute;
+            top: -12px; left: 30px;
+            background: #00b4d8;
+            color: #050811;
+            padding: 2px 15px;
+            font-weight: bold;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        .step-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .step-card {
+            background: rgba(5, 8, 17, 0.6);
+            border: 1px solid rgba(0, 180, 216, 0.2);
+            padding: 25px;
+            border-radius: 6px;
+            position: relative;
+        }
+
+        .step-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 32px;
+            color: rgba(0, 180, 216, 0.3);
+            position: absolute;
+            top: 15px; right: 20px;
+            font-weight: 800;
+        }
+
+        .blueprint-line {
+            width: 100%;
+            height: 4px;
+            background: rgba(0, 180, 216, 0.2);
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blueprint-line::after {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; width: 40%; height: 100%;
+            background: #00b4d8;
+            animation: loading-scan 2s linear infinite;
+        }
+
+        @keyframes loading-scan {
+            0% { left: -40%; }
+            100% { left: 100%; }
+        }
+
+        /* FORMULARIO DE PROMOCIÓN / REGISTRO DE UNIDAD */
+        .form-container {
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.8) 0%, rgba(5, 8, 17, 0.9) 100%);
+            border: 1px solid rgba(0, 230, 118, 0.2);
+            padding: 40px;
+            border-radius: 10px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            text-transform: uppercase;
+            color: #00b4d8;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px 15px;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #00e676;
+            background: rgba(30, 41, 59, 0.8);
+            box-shadow: 0 0 10px rgba(0, 230, 118, 0.2);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: #64748b;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- MENÚ DE CONFIGURACIÓN -->
+    <header>
+        <div class="logo">ECO-<span>BOTICS</span></div>
+        <nav>
+            <a href="#" class="active">Consola Central</a>
+            <a href="#taller">Taller</a>
+            <a href="#tienda">Mercado/Tienda</a>
+            <a href="#academia">Academia de Planos</a>
+            <a href="#promocion">Campañas</a>
+        </nav>
+    </header>
+
+    <!-- PANTALLA HERO PRINCIPAL -->
+    <section class="hero">
+        <h1>RED ROBÓTICA DE LIMPIEZA <br>PLANETARIA ACTIVA</h1>
+        <p>Toma el control del ecosistema de restauración urbana más avanzado. Diseña, ensambla, vende y promociona flotas de robots autónomos con inteligencia artificial configurados para erradicar cualquier residuo en las calles en tiempo real.</p>
+        <div class="btn-container">
+            <button class="btn" onclick="window.location.href='#promocion'">PROMOVER PROYECTO</button>
+            <button class="btn btn-secondary" onclick="window.location.href='#academia'">APRENDE A ARMAR</button>
+        </div>
+    </section>
+
+    <!-- CONTADORES HUD EN TIEMPO REAL -->
+    <section class="stats-banner">
+        <div class="stat-item">
+            <h2>8,429</h2>
+            <p>Robots Activos en la Ciudad</p>
+        </div>
+        <div class="stat-item">
+            <h2>98.7%</h2>
+            <p>Índice de Limpieza Urbana</p>
+        </div>
+        <div class="stat-item">
+            <h2>24.5M</h2>
+            <p>Toneladas de Desechos Procesados</p>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE SECCIONES: COMPRAR, ARMAR, PROMOVER -->
+    <section id="taller" class="section-container">
+        <h2 class="section-title">Módulos Estratégicos del Sistema</h2>
+        
+        <div class="grid-mechanics">
+            <!-- MÓDULO 1: ARMAR -->
+            <div class="card">
+                <div class="robot-render">
+                    <div class="bot-graphic"></div>
+                </div>
+                <h3>[01] INGENIERÍA Y ENSAMBLE</h3>
+                <p>Combina chasis blindados, algoritmos avanzados de navegación de calles y herramientas moleculares de absorción. Configura la unidad perfecta adaptando recolectores de microplásticos o absorbedores de CO2 para las avenidas principales.</p>
+                <span class="stat-badge">SISTEMA DE DISEÑO</span>
+            </div>
+
+            <!-- MÓDULO 2: COMPRAR / VENDER -->
+            <div class="card card-alt">
+                <div class="robot-render">
+                    <div class="bot-graphic bot-graphic-cyan"></div>
+                </div>
+                <h3>[02] MERCADO DE COMPRA Y VENTA</h3>
+                <p>Comercializa planos de ingeniería avanzada y robots optimizados a distritos urbanos o corporaciones masivas. Intercambia núcleos de energía limpia, piezas de repuesto ultra-raras y tecnologías patentadas para financiar tu taller.</p>
+                <span class="stat-badge" style="background: rgba(0, 180, 216, 0.1); color: #00b4d8;">MERCADO DE DIVISAS</span>
+            </div>
+
+            <!-- MÓDULO 3: PROMOVER -->
+            <div class="card">
+                <div class="robot-render">
+                    <div class="bot-graphic" style="border-radius: 50%;"></div>
+                </div>
+                <h3>[03] CAMPAÑA DE PROMOCIÓN</h3>
+                <p>Difunde el impacto ambiental de tus robots a nivel global. Consigue contratos de patrocinio masivos y eleva el estatus de tu corporación demostrando la eficiencia táctica de tus unidades patrullando las calles de la ciudad.</p>
+                <span class="stat-badge">CENTRO DE MARKETING</span>
+            </div>
+        </div>
+
+        <!-- TABLA PANEL DE CONTROL INTERACTIVO DE UNIDADES EN VIVO -->
+        <h3 class="section-title" style="margin-top: 60px; font-size: 24px
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECO-BOTICS | Autonomous Planetary Cleansing Grid</title>
+    <style>
+        /* Fuentes Futuristas de Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Rajdhani:wght@500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        body {
+            background-color: #050811;
+            color: #e2e8f0;
+            overflow-x: hidden;
+            /* Luces de neón de fondo simulando alta tecnología */
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 230, 118, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(0, 180, 216, 0.1) 0%, transparent 40%);
+        }
+
+        /* BARRA DE NAVEGACIÓN COMPRA/VENTA/LOGS */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            border-bottom: 1px solid rgba(0, 230, 118, 0.2);
+            background: rgba(5, 8, 17, 0.85);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            color: #00e676;
+            text-shadow: 0 0 10px rgba(0, 230, 118, 0.5);
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: #00b4d8;
+        }
+
+        nav a {
+            color: #e2e8f0;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        nav a:hover, nav a.active {
+            color: #00e676;
+            text-shadow: 0 0 8px rgba(0, 230, 118, 0.6);
+        }
+
+        /* HERO SECTION (PANTALLA DE INICIO) */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            margin-top: 60px;
+            position: relative;
+        }
+
+        /* Cuadrícula estilo HUD de Videojuegos */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.5), transparent 90%),
+                        linear-gradient(90deg, rgba(0, 230, 118, 0.03) 1px, transparent 1px),
+                        linear-gradient(rgba(0, 230, 118, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 64px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #fff 30%, #00e676, #00b4d8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 2px 10px rgba(0,230,118,0.2));
+        }
+
+        .hero p {
+            font-size: 22px;
+            max-width: 800px;
+            margin-bottom: 40px;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        /* BOTONES INTERACTIVOS CON ESQUINAS DE JUEGO SCI-FI */
+        .btn-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn {
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 16px;
+            letter-spacing: 2px;
+            padding: 15px 35px;
+            border: 2px solid #00e676;
+            color: #00e676;
+            background: rgba(0, 230, 118, 0.05);
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 230, 118, 0.2);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; width: 10px; height: 10px;
+            border-top: 2px solid #fff; border-left: 2px solid #fff;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            bottom: -2px; right: -2px; width: 10px; height: 10px;
+            border-bottom: 2px solid #fff; border-right: 2px solid #fff;
+        }
+
+        .btn:hover {
+            background: #00e676;
+            color: #050811;
+            box-shadow: 0 0 25px #00e676;
+        }
+
+        .btn-secondary {
+            border-color: #00b4d8;
+            color: #00b4d8;
+            background: rgba(0, 180, 216, 0.05);
+            box-shadow: 0 0 15px rgba(0, 180, 216, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: #00b4d8;
+            color: #050811;
+            box-shadow: 0 0 25px #00b4d8;
+        }
+
+        /* CONTENEDOR DE SECCIONES */
+        .section-container {
+            padding: 80px 50px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 36px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            border-left: 4px solid #00e676;
+            padding-left: 15px;
+            color: #fff;
+        }
+
+        /* REJILLA DINÁMICA DE MECÁNICAS (COMPRAR / ARMAR / PROMOVER) */
+        .grid-mechanics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 3px solid #00e676;
+            padding: 40px 30px;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .card-alt {
+            border-top-color: #00b4d8;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            background: rgba(15, 23, 42, 0.9);
+            border-color: rgba(0, 230, 118, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 230, 118, 0.05);
+        }
+
+        /* RENDERS CSS DE LOS ROBOTS */
+        .robot-render {
+            width: 100%;
+            height: 200px;
+            background: #0b132b;
+            margin-bottom: 25px;
+            border: 1px dashed rgba(0, 230, 118, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .robot-render::before {
+            content: 'VISUALIZACIÓN MATRIZ 3D...';
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            color: rgba(0, 230, 118, 0.5);
+            letter-spacing: 1px;
+            position: absolute;
+            top: 10px; left: 10px;
+        }
+
+        /* Diseños Geométricos de Robots con Animación */
+        .bot-graphic {
+            width: 80px;
+            height: 80px;
+            border: 3px solid #00e676;
+            border-radius: 15px;
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .bot-graphic::after {
+            content: '';
+            position: absolute;
+            top: 25px; left: 15px; width: 12px; height: 12px;
+            background: #00b4d8; border-radius: 50%;
+            box-shadow: 25px 0 0 #00b4d8, 0 0 10px #00b4d8;
+        }
+
+        .bot-graphic-cyan { border-color: #00b4d8; }
+        .bot-graphic-cyan::after { background: #00e676; box-shadow: 25px 0 0 #00e676, 0 0 10px #00e676; }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 22px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .card p {
+            color: #94a3b8;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .stat-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            background: rgba(0, 230, 118, 0.1);
+            color: #00e676;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 1px;
+            border-radius: 3px;
+        }
+
+        /* MARCADOR DE ESTADÍSTICAS GLOBALES */
+        .stats-banner {
+            background: linear-gradient(135deg, #0f172a 0%, #050811 100%);
+            border-top: 1px solid rgba(0, 230, 118, 0.1);
+            border-bottom: 1px solid rgba(0, 230, 118, 0.1);
+            padding: 60px 50px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat-item h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 48px;
+            color: #00e676;
+            text-shadow: 0 0 15px rgba(0, 230, 118, 0.3);
+        }
+
+        .stat-item p {
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: #94a3b8;
+            margin-top: 5px;
+        }
+
+        /* PANEL DE MONITOREO DE UNIDADES ACTIVAS (HUD JUEGO) */
+        .hud-table-container {
+            background: rgba(10, 17, 36, 0.7);
+            border: 1px solid rgba(0, 180, 216, 0.3);
+            border-radius: 8px;
+            padding: 25px;
+            margin-top: 20px;
+            overflow-x: auto;
+        }
+
+        .hud-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .hud-table th {
+            font-family: 'Orbitron', sans-serif;
+            color: #00b4d8;
+            text-transform: uppercase;
+            font-size: 14px;
+            padding: 15px;
+            border-bottom: 2px solid rgba(0, 180, 216, 0.4);
+            letter-spacing: 1px;
+        }
+
+        .hud-table td {
+            padding: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 16px;
+        }
+
+        .hud-table tr:hover {
+            background: rgba(0, 230, 118, 0.05);
+        }
+
+        /* Barras de Energía Estilo RPG */
+        .status-bar {
+            width: 100px;
+            height: 10px;
+            background: #1e293b;
+            border-radius: 5px;
+            overflow: hidden;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+
+        .status-fill {
+            height: 100%;
+            background: #00e676;
+            box-shadow: 0 0 8px #00e676;
+        }
+
+        .status-fill.medium { background: #ffca28; box-shadow: 0 0 8px #ffca28;}
+        .status-fill.low { background: #ef5350; box-shadow: 0 0 8px #ef5350;}
+
+        /* TIENDA DE PIEZAS / MERCADO DE COMPRA Y VENTA */
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .shop-item {
+            background: #0b132b;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .shop-item:hover {
+            border-color: #00e676;
+            box-shadow: 0 0 15px rgba(0, 230, 118, 0.15);
+        }
+
+        .shop-item img-replacement {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #00b4d8;
+            display: block;
+            margin: 0 auto 15px auto;
+            transform: rotate(45deg);
+        }
+
+        .price-tag {
+            font-family: 'Orbitron', sans-serif;
+            color: #ffca28;
+            font-size: 18px;
+            font-weight: 700;
+            margin: 15px 0;
+            display: block;
+        }
+
+        .btn-shop {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        /* --- SECCIÓN DE APRENDIZAJE / ACADEMIA HOLOGRÁFICA --- */
+        .academy-box {
+            background: rgba(11, 19, 43, 0.8);
+            border: 2px dashed #00b4d8;
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .academy-box::before {
+            content: 'MODO TUTORIAL: PASO A PASO';
+            font-family: 'Orbitron', sans-serif;
+            position: absolute;
+            top: -12px; left: 30px;
+            background: #00b4d8;
+            color: #050811;
+            padding: 2px 15px;
+            font-weight: bold;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        .step-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .step-card {
+            background: rgba(5, 8, 17, 0.6);
+            border: 1px solid rgba(0, 180, 216, 0.2);
+            padding: 25px;
+            border-radius: 6px;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .step-card.completed {
+            border-color: #00e676;
+            background: rgba(0, 230, 118, 0.03);
+        }
+
+        .step-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 32px;
+            color: rgba(0, 180, 216, 0.3);
+            position: absolute;
+            top: 15px; right: 20px;
+            font-weight: 800;
+        }
+
+        .blueprint-line {
+            width: 100%;
+            height: 4px;
+            background: rgba(0, 180, 216, 0.2);
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blueprint-line::after {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; width: 40%; height: 100%;
+            background: #00b4d8;
+            animation: loading-scan 2s linear infinite;
+        }
+
+        .step-card.completed .blueprint-line::after {
+            background: #00e676;
+            width: 100%;
+            left: 0;
+            animation: none;
+        }
+
+        @keyframes loading-scan {
+            0% { left: -40%; }
+            100% { left: 100%; }
+        }
+
+        /* FORMULARIO DE PROMOCIÓN / REGISTRO DE UNIDAD */
+        .form-container {
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.8) 0%, rgba(5, 8, 17, 0.9) 100%);
+            border: 1px solid rgba(0, 230, 118, 0.2);
+            padding: 40px;
+            border-radius: 10px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            text-transform: uppercase;
+            color: #00b4d8;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px 15px;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #00e676;
+            background: rgba(30, 41, 59, 0.8);
+            box-shadow: 0 0 10px rgba(0, 230, 118, 0.2);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: #64748b;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">ECO-<span>BOTICS</span></div>
+        <nav>
+            <a href="#" class="active">Consola Central</a>
+            <a href="#taller">Taller</a>
+            <a href="#tienda">Mercado/Tienda</a>
+            <a href="#academia">Academia de Planos</a>
+            <a href="#promocion">Campañas</a>
+            <span id="credit-hud" style="color: #ffca28; font-family: 'Orbitron'; font-weight: bold; margin-left: 20px; border: 1px solid #ffca28; padding: 5px 10px; border-radius: 4px;">$5,000 G-CRÉDITOS</span>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>RED ROBÓTICA DE LIMPIEZA <br>PLANETARIA ACTIVA</h1>
+        <p>Toma el control del ecosistema de restauración urbana más avanzado. Diseña, ensambla, vende y promociona flotas de robots autónomos con inteligencia artificial configurados para erradicar cualquier residuo en las calles en tiempo real.</p>
+        <div class="btn-container">
+            <button class="btn" onclick="window.location.href='#promocion'">PROMOVER PROYECTO</button>
+            <button class="btn btn-secondary" onclick="window.location.href='#academia'">APRENDE A ARMAR</button>
+        </div>
+    </section>
+
+    <section class="stats-banner">
+        <div class="stat-item">
+            <h2 id="total-bots">3</h2>
+            <p>Robots Activos en la Ciudad</p>
+        </div>
+        <div class="stat-item">
+            <h2>98.7%</h2>
+            <p>Índice de Limpieza Urbana</p>
+        </div>
+        <div class="stat-item">
+            <h2>24.5M</h2>
+            <p>Toneladas de Desechos Procesados</p>
+        </div>
+    </section>
+
+    <section id="taller" class="section-container">
+        <h2 class="section-title">Módulos Estratégicos del Sistema</h2>
+        
+        <div class="grid-mechanics">
+            <div class="card">
+                <div class="robot-render">
+                    <div class="bot-graphic"></div>
+                </div>
+                <h3>[01] INGENIERÍA Y ENSAMBLE</h3>
+                <p>Combina chasis blindados, algoritmos avanzados de navegación de calles y herramientas moleculares de absorción. Configura la unidad perfecta adaptando recolectores de microplásticos o absorbedores de CO2 para las avenidas principales.</p>
+                <span class="stat-badge">SISTEMA DE DISEÑO</span>
+            </div>
+
+            <div class="card card-alt">
+                <div class="robot-render">
+                    <div class="bot-graphic bot-graphic-cyan"></div>
+                </div>
+                <h3>[02] MERCADO DE COMPRA Y VENTA</h3>
+                <p>Comercializa planos de ingeniería avanzada y robots optimizados a distritos urbanos o corporaciones masivas. Intercambia núcleos de energía limpia, piezas de repuesto ultra-raras y tecnologías patentadas para financiar tu taller.</p>
+                <span class="stat-badge" style="background: rgba(0, 180, 216, 0.1); color: #00b4d8;">MERCADO DE DIVISAS</span>
+            </div>
+
+            <div class="card">
+                <div class="robot-render">
+                    <div class="bot-graphic" style="border-radius: 50%;"></div>
+                </div>
+                <h3>[03] CAMPAÑA DE PROMOCIÓN</h3>
+                <p>Difunde el impacto ambiental de tus robots a nivel global. Consigue contratos de patrocinio masivos y eleva el estatus de tu corporación demostrando la eficiencia táctica de tus unidades patrullando las calles de la ciudad.</p
+
